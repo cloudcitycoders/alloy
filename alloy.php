@@ -23,6 +23,11 @@ include 'api/post-type.php';
  */
 class Alloy {
 
+  /**
+   * Expose the Post_Type class to the Alloy class.
+   * @param string $action The action this method will be performing.
+   * @param array  $args   Developer defined arguments.
+   */
   public function Post_Type( $action='new', $args=array() ) {
     $post_type = new Post_Type;
     $post_type->$action($args);
