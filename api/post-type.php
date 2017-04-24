@@ -24,6 +24,11 @@ class Post_Type {
    */
   public function new( $args=array() ) {
 
+    // Abort if the required arguments aren't defined.
+    if( !$args['label'] ) {
+      return;
+    }
+
     // Get the args.
     $args = $this->new_post_type_args( $args );
 

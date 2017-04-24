@@ -11,6 +11,7 @@
 // Bootstrap.
 include 'api/bootstrap.php';
 include 'api/post-type.php';
+include 'api/taxonomy.php';
 
 
 /**
@@ -31,6 +32,11 @@ class Alloy {
   public function Post_Type( $action='new', $args=array() ) {
     $post_type = new Post_Type;
     $post_type->$action($args);
+  }
+
+  public function Taxonomy( $action='new', $args=array() ) {
+    $taxonomy = new Taxonomy;
+    $taxonomy->$action($args);
   }
 
 }
