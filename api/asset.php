@@ -28,6 +28,8 @@ class Asset {
       return;
     }
 
+    $args['type'] = strtolower($args['type']);
+
     if( $args['type'] == 'css' ) {
       $this->new_css( $args );
     }
