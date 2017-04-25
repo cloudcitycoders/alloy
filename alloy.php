@@ -8,10 +8,15 @@
  * @since 0.1.0
  */
 
-// Bootstrap.
+// Get configs.
+include 'config/constants.config.php';
+
+// Load the API.
 include 'api/bootstrap.php';
+include 'api/constants.php';
 include 'api/post-type.php';
 include 'api/taxonomy.php';
+include 'api/asset.php';
 
 
 /**
@@ -25,6 +30,15 @@ include 'api/taxonomy.php';
 class Alloy {
 
   /**
+   * Expose the Constants class to Alloy.
+   * @param string $constant The key to access the constant being requested.
+   */
+  public function Constant( $constant ) {
+    $constants = new Constants;
+    return $constants->get($constant);
+  }
+
+  /**
    * Expose the Post_Type class to the Alloy class.
    * @param string $action The action this method will be performing.
    * @param array  $args   Developer defined arguments.
@@ -34,9 +48,24 @@ class Alloy {
     $post_type->$action($args);
   }
 
+  /**
+   * Expose the Taxonomy class to the Alloy class.
+   * @param string $action The action this method will be performing.
+   * @param array  $args   Developer defined arguments.
+   */
   public function Taxonomy( $action='new', $args=array() ) {
     $taxonomy = new Taxonomy;
     $taxonomy->$action($args);
+  }
+
+  /**
+   * Expose the Asset class to the Alloy class.
+   * @param string $action The action this method will be performing.
+   * @param array  $args   Developer defined arguments.
+   */
+  public function Asset( $action='new', $args=array() ) {
+    $asset = new Asset;
+    $asset->$action($args);
   }
 
 }
