@@ -12,11 +12,14 @@
 include 'config/constants.config.php';
 
 // Load the API.
+include 'functions.php';
 include 'api/bootstrap.php';
 include 'api/constants.php';
 include 'api/post-type.php';
 include 'api/taxonomy.php';
 include 'api/asset.php';
+include 'api/fetch.php';
+include 'api/user.php';
 
 
 /**
@@ -66,6 +69,26 @@ class Alloy {
   public function Asset( $action='new', $args=array() ) {
     $asset = new Asset;
     $asset->$action($args);
+  }
+
+  /**
+   * Expose the User class to the Alloy class.
+   * @param string $action The action this method will be performing.
+   * @param array  $args   Developer defined arguments.
+   */
+  public function User( $action='get', $args=array() ) {
+    $user = new User;
+    return $user->$action($args);
+  }
+
+  /**
+   * Expose the Fetch class to the Alloy class.
+   * @param string $action The action this method will be performing.
+   * @param array  $args   Developer defined arguments.
+   */
+  public function Fetch( $action='get', $args=array() ) {
+    $fetch = new Fetch;
+    return $fetch->$action($args);
   }
 
 }
