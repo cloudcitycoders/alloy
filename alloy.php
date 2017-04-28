@@ -20,6 +20,7 @@ include 'api/taxonomy.php';
 include 'api/asset.php';
 include 'api/fetch.php';
 include 'api/user.php';
+include 'api/acf.php';
 
 
 /**
@@ -89,6 +90,16 @@ class Alloy {
   public function Fetch( $action='get', $args=array() ) {
     $fetch = new Fetch;
     return $fetch->$action($args);
+  }
+
+  /**
+   * Expose the ACF class to the Alloy class.
+   * @param string $action The action this method will be performing.
+   * @param array  $args   Developer defined arguments.
+   */
+  public function ACF( $action='', $args=array() ) {
+    $acf = new Alloy_ACF;
+    return $acf->$action($args);
   }
 
 }

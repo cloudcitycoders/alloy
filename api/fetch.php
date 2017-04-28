@@ -45,7 +45,7 @@ class Fetch {
       return;
     }
 
-    $user_presets = array(
+    $presets = array(
       'ID',
       'user_nicename',
       'user_email',
@@ -58,18 +58,34 @@ class Fetch {
       'description'
     );
 
+    $acf_id = 'user_' . $wp_user_obj->ID;
+
+    return $this->get_return_data( $args['return'], $wp_user_obj, $presets, $acf_id );
+
+  }
+
+  public function get_return_data( $query_return=array(), $wp_obj=array(), $presets=array(), $acf_id='' ) {
+
+    // If $wp_obj is an array convert it to an object.
+    if( is_object( $wp_obj ) ) {
+      $wp_obj = array_to_object( $wp_obj );
+    }
+
     $return_data = array();
 
-    foreach($args['return'] as $return) {
+    foreach( $query_return as $return ) {
 
       // Check to see if it's WP data.
-      if( in_array($return, $user_presets) ) {
-        $return_data[$return] = $wp_user_obj->$return;
+      if( in_array($return, $presets) ) {
+        $return_data[$return] = $wp_obj->$return;
         continue;
       }
 
       // Check to see if it's a field group.
-      $group_fields = acf_get_group_data( $return, 'user_' . $wp_user_obj->ID );
+      $group_fields = Alloy::ACF('group_data', array(
+        'title' => $return,
+        'id' => $acf_id
+      ));
 
       if( $group_fields ) {
         $group_slug = sanitize_title( $return );
@@ -78,14 +94,13 @@ class Fetch {
       }
 
       // Check to see if it's a one off field.
-      $field = get_field( $return, 'user_' . $wp_user_obj->ID );
+      $field = get_field( $return, $acf_id );
 
       $return_data[$return] = $field;
 
     }
 
     return $return_data;
-
   }
 
 }
