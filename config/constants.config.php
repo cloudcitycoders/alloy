@@ -8,3 +8,8 @@ define( 'alloy_assets_url', alloy_theme_url . '/assets' );
 define( 'alloy_css_url', alloy_assets_url . '/css' );
 define( 'alloy_js_url', alloy_assets_url . '/js' );
 define( 'alloy_media_url', alloy_assets_url . '/media' );
+
+// Save the ACF field groups as a constant.
+$acf_field_groups = acf_get_field_groups();
+
+define('alloy_acf_groups', $acf_field_groups);

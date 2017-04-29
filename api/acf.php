@@ -7,8 +7,20 @@
  * @since 0.1.0
  */
 
+/**
+ * A collection of tools to aid in working with ACF
+ *
+ * The Alloy_ACF class provides methods for working with ACF groups and fields in Alloy.
+ *
+ * @since 0.1.0
+ */
 class Alloy_ACF {
 
+  /**
+   * Retrieve the value for each field in a group of fields.
+   * @param  array  $args An array of args. Title and ID are required. ID can be integer or a string like "option".
+   * @return array        An array of field values.
+   */
   public function group_data( $args=array() ) {
 
     // Abort if required fields aren't present.
@@ -40,9 +52,14 @@ class Alloy_ACF {
 
   }
 
+  /**
+   * Retrieve the key for an ACF group.
+   * @param  string $title The title of the group you want to retrieve the key for.
+   * @return string        The key for the ACF group.
+   */
   public function get_group_key_by_title( $title='' ) {
 
-    $groups = acf_get_field_groups();
+    $groups = alloy_acf_groups;
 
     if( !$groups ) {
       return;
@@ -58,6 +75,11 @@ class Alloy_ACF {
 
   }
 
+  /**
+   * Get the fields associated with a group by group key.
+   * @param  string $group_key The key for the ACF group you want to get the fields from
+   * @return array             A list of fields that belong to the group.
+   */
   public function get_group_fields( $group_key='' ) {
 
     $fields = acf_get_fields( $group_key );

@@ -16,6 +16,11 @@
  */
 class Fetch {
 
+  /**
+   * Get data based on the query provided and return the fields provided.
+   * @param  array  $args An array containing the query and return.
+   * @return array        An array of the returned data.
+   */
   public function get( $args=array() ) {
 
     // Abort if required parameter isn't specified.
@@ -30,6 +35,11 @@ class Fetch {
 
   }
 
+  /**
+   * Get requested user data.
+   * @param  array  $args The query and return parameters.
+   * @return array        An array of data.
+   */
   public function user( $args=array() ) {
 
     // Abort if required field isn't present.
@@ -64,6 +74,14 @@ class Fetch {
 
   }
 
+  /**
+   * Get WP fields, custom field groups, and custom fields.
+   * @param  array  $query_return The fields to be returned.
+   * @param  array  $wp_obj       The WP object of what is being queried.
+   * @param  array  $presets      The fields available inside the WP object.
+   * @param  string|int $acf_id   The ACF ID field. Can be an ID (int), option or user_ (string)
+   * @return array                Returns the data.
+   */
   public function get_return_data( $query_return=array(), $wp_obj=array(), $presets=array(), $acf_id='' ) {
 
     // If $wp_obj is an array convert it to an object.
