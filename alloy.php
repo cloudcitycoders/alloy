@@ -21,6 +21,7 @@ include 'api/asset.php';
 include 'api/fetch.php';
 include 'api/user.php';
 include 'api/acf.php';
+include 'api/fieldset.php';
 
 
 /**
@@ -100,6 +101,39 @@ class Alloy {
   public function ACF( $action='', $args=array() ) {
     $acf = new Alloy_ACF;
     return $acf->$action($args);
+  }
+
+  /**
+   * Expose the Fieldset class to the Alloy class.
+   * @param string $action The action this method will be performing.
+   * @param array  $args   Developer defined arguments.
+   */
+  public function Fieldset( $action='', $args=array() ) {
+    $fieldset = new Fieldset;
+    return $fieldset->$action($args);
+  }
+
+  /**
+   * Expose the Field part of the Fieldset class to the Alloy class.
+   * @param string $type  The type of field being registered.
+   * @param string $label The field label
+   * @param string $name  The field name
+   * @param array  $args  ACF args for the field.
+   */
+  public function Field( $type='text', $label='', $name='', $args=array() ) {
+    $fieldset = new Fieldset;
+    return $fieldset->register_field( $type, $label, $name, $args );
+  }
+
+  /**
+   * Expose the Layout part of the Fieldset class to the Alloy class.
+   * @param string $label The field label
+   * @param string $name  The field name
+   * @param array  $args  ACF args for the flexible content field.
+   */
+  public function Layout( $label='', $name='', $args=array() ) {
+    $fieldset = new Fieldset;
+    return $fieldset->register_layout( $label, $name, $args );
   }
 
 }
